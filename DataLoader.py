@@ -89,7 +89,7 @@ class DataLoader:
         Abstract public method. Ensures all subclasses has a method for retrieving the data for training
         """
         raise NotImplementedError("All subclasses must get training data")
-    def get_test_data(self):
+    def get_testing_data(self):
         """
         Abstract public method. Ensures all subclasses has a method for retrieving the data for testing
         """

@@ -38,8 +38,8 @@ def plot_grid(x_recon, dset,batch_size,epochs,name,save_plot,noisy,learning_rate
         print(f"Saved grid as {plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
 
    
-    plt.show(block=False)
-    plt.pause(0.001)
+    plt.show()
+
 
 
 
@@ -62,5 +62,5 @@ def plot_latent(z,labels,dset,batch_size,epochs,name,save_plot,noisy,learning_ra
         plt.savefig(f"{save_dir}/{plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
         print(f"Saved plot {plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
     
-    plt.show(block=False)
-    plt.pause(0.001)
+    plt.show()
+ 

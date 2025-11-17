@@ -45,20 +45,18 @@ def main():
     optimizer = tf.keras.optimizers.Adam(learning_rate =args.learning_rate)
     my_data_loader = MnistDataLoader(dset = args.dset,version = args.version)
     tr_data = my_data_loader.get_training_data(batch_size=args.batch_size)
-
     for e in range(args.epochs):
         batch_loss = []
         for tr_batch in tr_data:
             loss = model.train(tr_batch,optimizer)
             batch_loss.append(loss)
+    
         if not args.silent_mode:
             epoch_loss = tf.reduce_mean(batch_loss).numpy()
             print(f" Epoch: {e+1} | Loss = {epoch_loss} ")
 
 
-
-
-
+   
 
 
 
@@ -83,7 +81,6 @@ def main():
         z_prior = tf.convert_to_tensor(z_prior)
         if args.noisy:    
             x_recon = model.reconstruct_noisy(z_prior)
-    
         else:
             x_recon = model.reconstruct_mean(z_prior)
             
@@ -95,15 +92,13 @@ def main():
         z = model.sample_z(te_data)
         if args.noisy:   
             x_recon = model.reconstruct_noisy(z)
-    
         else:
             x_recon = model.reconstruct_mean(z)
         plot_grid(x_recon,args.dset,args.batch_size,args.epochs,"Posterior",args.save_plot,args.noisy,args.learning_rate,args.version)
 
 
 main()
-import matplotlib.pyplot as plt
-plt.show()
+
 
 
 
