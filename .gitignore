@@ -1,4 +1,4 @@
-# Ignore data and temporary files
+
 data/
 *.csv
 *.xlsx
@@ -7,13 +7,12 @@ data/
 *.npy
 *.parquet
 
-# Keep model weights
+
 !weights/
 !*.h5
 
-# Ignore virtual environment
+
 .venv/
 
-# Ignore temporary system files
 __pycache__/
 .DS_Store
