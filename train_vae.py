@@ -1,6 +1,6 @@
 
 import argparse
-import numpy as np 
+
 from VAE import VAE
 
 import tensorflow as tf
@@ -10,27 +10,27 @@ from MnistDataLoader import MnistDataLoader
 from network_selecter import network_selecter
 from plot_utils import plot_grid,plot_latent
 
-
 def main():
-    #__________________dset and plot selectors________________________________________
+    #__________________Dataset choice and visualization________________________________________
     parser = argparse.ArgumentParser(description="This program runs the train.py file")
     parser.add_argument("--dset", type= str, default= "mnist_bw")
     parser.add_argument("--version",type = str, default= "m1")
     parser.add_argument("--visualize_latent",action = "store_true")
     parser.add_argument("--generate_from_prior",action="store_true")
     parser.add_argument("--generate_from_posterior",action="store_true")
+    parser.add_argument("--noisy", action ="store_true")
    
 
-    #________________Hyperparameters___________________________________
+    #________________Trainning_Hyperparameters___________________________________
     parser.add_argument("--epochs",type = int,default = 50)
     parser.add_argument("--batch_size",type = int, default = 256)
-    parser.add_argument("--learning_rate",type = float, default = 1e-4)
+    parser.add_argument("--learning_rate",type = float, default = 1e-3)
 
     #_________________Quality of life___________________________
-    parser.add_argument("--show_plot", action = "store_true")
     parser.add_argument("--save_plot",action = "store_true")
-    parser.add_argument("--silent_mode", action = "store_false")
-    parser.add_argument("--noisy", action ="store_true")
+    parser.add_argument("--silent_mode", action="store_true", default=False)
+
+  
    
         
 
@@ -51,7 +51,7 @@ def main():
         for tr_batch in tr_data:
             loss = model.train(tr_batch,optimizer)
             batch_loss.append(loss)
-        if args.silent_mode:
+        if not args.silent_mode:
             epoch_loss = tf.reduce_mean(batch_loss).numpy()
             print(f" Epoch: {e+1} | Loss = {epoch_loss} ")
 
@@ -71,7 +71,7 @@ def main():
         else:
             z = model.sample_zmean(x_te)
 
-        plot_latent(z,labels,args.dset,args.batch_size,args.epochs,"Latent",args.save_plot,args.noisy,args.show_plot,args.learning_rate,args.version,)
+        plot_latent(z,labels,args.dset,args.batch_size,args.epochs,"Latent",args.save_plot,args.noisy,args.learning_rate,args.version,)
 
 
 
@@ -87,7 +87,7 @@ def main():
         else:
             x_recon = model.reconstruct_mean(z_prior)
             
-        plot_grid(x_recon,args.dset,args.batch_size,args.epochs,"Prior",args.save_plot,args.noisy,args.show_plot,args.learning_rate,args.version)
+        plot_grid(x_recon,args.dset,args.batch_size,args.epochs,"Prior",args.save_plot,args.noisy,args.learning_rate,args.version)
 
     #__________Generating new image from posterior dist.____________
     if args.generate_from_posterior:
@@ -98,11 +98,12 @@ def main():
     
         else:
             x_recon = model.reconstruct_mean(z)
-        plot_grid(x_recon,args.dset,args.batch_size,args.epochs,"Posterior",args.save_plot,args.noisy,args.show_plot,args.learning_rate,args.version)
+        plot_grid(x_recon,args.dset,args.batch_size,args.epochs,"Posterior",args.save_plot,args.noisy,args.learning_rate,args.version)
 
 
 main()
-
+import matplotlib.pyplot as plt
+plt.show()
 
 
 

@@ -18,7 +18,6 @@ class Decoder(BiCoder):
     Attributes:
         neural_net: The underlying neural network used to decode inputs.
     """   
-        
     
     def __init__(self,neural_net):
         super().__init__(neural_net)
@@ -37,7 +36,6 @@ class Decoder(BiCoder):
 
         xhat = mu_x+eps*self.sigma_x
         
-      
         return xhat, mu_x,self.logsigma_x
     
 

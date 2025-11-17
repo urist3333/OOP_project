@@ -4,7 +4,7 @@ from mpl_toolkits.axes_grid1 import ImageGrid
 from sklearn.manifold import TSNE
 import tensorflow as tf
 import numpy as np 
-def plot_grid(x_recon, dset,batch_size,epochs,name,save_plot,noisy,show_plot,learning_rate,version =""):
+def plot_grid(x_recon, dset,batch_size,epochs,name,save_plot,noisy,learning_rate,version =""):
    
     N = 10; C = 10; figsize = (24.,28)
     if dset == "mnist_bw":
@@ -37,14 +37,14 @@ def plot_grid(x_recon, dset,batch_size,epochs,name,save_plot,noisy,show_plot,lea
         plt.savefig(f"{save_dir}/{plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
         print(f"Saved grid as {plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
 
-    if show_plot:
-        plt.show()
-    plt.close()
+   
+    plt.show(block=False)
+    plt.pause(0.001)
 
 
 
 
-def plot_latent(z,labels,dset,batch_size,epochs,name,save_plot,noisy,show_plot,learning_rate,version =""):
+def plot_latent(z,labels,dset,batch_size,epochs,name,save_plot,noisy,learning_rate,version =""):
     if dset == "mnist_bw":
         plot_name = dset
     else:
@@ -61,6 +61,6 @@ def plot_latent(z,labels,dset,batch_size,epochs,name,save_plot,noisy,show_plot,l
         os.makedirs(save_dir, exist_ok=True)
         plt.savefig(f"{save_dir}/{plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
         print(f"Saved plot {plot_name}_{name}_learning_rate_{learning_rate}_batch_size_{batch_size}_epochs_{epochs}.png")
-    if show_plot:
-        plt.show()
-    plt.close()
+    
+    plt.show(block=False)
+    plt.pause(0.001)
